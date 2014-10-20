@@ -54,7 +54,9 @@ let rec read_expression (input : datum) : expression =
       | "set!" -> (match d2 with
                   | Cons(Atom (Identifier a), Cons(b, Nil)) when Identifier.is_valid_variable a-> ExprAssignment (Identifier.variable_of_identifier a, read_expression b)
                   | _ -> raise InvalidAssignment)
-      | "let" -> 
+      | "let" -> (match d2 with
+                 | Cons (Cons (d1, d2), d3) -> ExprLet (let temp = make_list (Cons(d1, d2)) in  ,[])
+                 | _ -> )
       |_-> failwith "Sdfsf")
   | _ -> failwith "sdasd"
 
